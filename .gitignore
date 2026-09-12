@@ -71,3 +71,4 @@ server.log
 
 # local CI workflow (not pushed — Pages deploy uses legacy gh-pages branch)
 /.github/
+tool-results/
