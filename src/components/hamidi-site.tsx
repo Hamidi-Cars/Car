@@ -1,13 +1,13 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ChevronDown, MapPin, Phone, ShieldCheck, Sparkles, Star } from "lucide-react";
+import { ChevronDown, Clock, FileCheck2, MapPin, Phone, ShieldCheck, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { SimpleBackground } from "./simple-background";
 import { SiteHeader } from "./site-header";
 import { CarsSection, BenefitsSection, ServicesSection } from "./site-sections";
-import { AboutSection, TestimonialsSection, ContactSection, FaqSection } from "./site-contact";
-import { PHONES } from "@/lib/site";
+import { AboutSection, ContactSection, FaqSection } from "./site-contact";
+import { BASE_PATH } from "@/lib/site";
 
 /* ------------------------------- hero -------------------------------- */
 
@@ -102,12 +102,12 @@ function Hero() {
             ضمانت اصالت کالا
           </span>
           <span className="inline-flex items-center gap-1.5">
-            <Star className="h-4 w-4 fill-[#d4af37] text-[#d4af37]" />
-            ۹۸٪ رضایت مشتریان
+            <FileCheck2 className="h-4 w-4 text-[#d4af37]" />
+            سند رسمی سراسری
           </span>
           <span className="inline-flex items-center gap-1.5">
-            <MapPin className="h-4 w-4 text-[#d4af37]" />
-            نمایشگاه مرکزی ساری
+            <Clock className="h-4 w-4 text-[#d4af37]" />
+            پشتیبانی همه‌روزه
           </span>
         </motion.div>
 
@@ -120,7 +120,7 @@ function Hero() {
         >
           <div className="absolute inset-x-10 bottom-0 h-24 rounded-full bg-[#d4af37]/20 blur-[70px]" />
           <img
-            src="/cars/hero.png"
+            src={`${BASE_PATH}/cars/hero.png`}
             alt="خودروی لوکس کرومه با رینگ‌های طلایی — حمیدی کارز"
             className="relative w-full rounded-3xl border border-[#d4af37]/15 shadow-[0_40px_120px_rgba(0,0,0,0.8)]"
           />
@@ -152,8 +152,8 @@ function Hero() {
 
 const STATS = [
   { value: "۱۲+", label: "سال تجربه درخشان" },
-  { value: "۲٬۵۰۰+", label: "خودروی تحویل‌شده" },
-  { value: "۹۸٪", label: "رضایت مشتریان" },
+  { value: "۵۰۰+", label: "خودروی موجود و استوک" },
+  { value: "۱۰۰٪", label: "سند رسمی سراسری" },
   { value: "۲۴/۷", label: "پشتیبانی همه‌روزه" },
 ];
 
@@ -228,7 +228,6 @@ function Footer() {
                 ["#services", "خدمات ما"],
                 ["#about", "درباره حمیدی کارز"],
                 ["#faq", "سوالات متداول"],
-                ["#testimonials", "نظرات مشتریان"],
                 ["#contact", "تماس با ما"],
               ].map(([href, label]) => (
                 <li key={href}>
@@ -243,10 +242,6 @@ function Footer() {
           <div>
             <h3 className="mb-4 text-sm font-extrabold text-[#f0d68a]">اطلاعات تماس</h3>
             <ul className="space-y-3 text-xs leading-6 text-zinc-400">
-              <li className="flex items-start gap-2">
-                <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-[#d4af37]" />
-                مازندران، ساری، بلوار خزر، جنب مجتمع تجاری آفتاب
-              </li>
               <li className="flex items-center justify-between gap-2">
                 <span className="flex items-center gap-2">
                   <Phone className="h-4 w-4 shrink-0 text-[#d4af37]" />
@@ -301,7 +296,6 @@ export function HamidiSite() {
         <BenefitsSection />
         <ServicesSection />
         <AboutSection />
-        <TestimonialsSection />
         <FaqSection />
         <ContactSection />
       </main>

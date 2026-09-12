@@ -1,6 +1,5 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
-import { Toaster } from "@/components/ui/toaster";
 import { SITE_URL, SITE_NAME, SITE_NAME_EN } from "@/lib/site";
 
 /* ------------------------- SEO metadata ------------------------- */
@@ -9,7 +8,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: "خودرو و ماشین پلاک منطقه آزاد مازندران | حمیدی کارز Hamidi Cars",
   description:
-    "خرید و فروش خودرو پلاک منطقه آزاد مازندران از حمیدی کارز در ساری؛ ماشین‌های پلاک آزاد صفر و استوک مدل ۲۰۲۶ (لندکروز، لکسوس، مرسدس، بی‌ام‌و) با سند رسمی سراسری، بیمه معتبر و قیمت منصفانه. تماس: 09118020409",
+    "خرید و فروش خودرو پلاک منطقه آزاد مازندران از حمیدی کارز؛ ماشین‌های پلاک آزاد صفر و استوک مدل ۲۰۲۶ (لندکروز، لکسوس، مرسدس، بی‌ام‌و) با سند رسمی سراسری، بیمه معتبر و قیمت منصفانه. تماس: 09118020409",
   keywords: [
     "پلاک منطقه آزاد مازندران",
     "خودرو پلاک منطقه آزاد مازندران",
@@ -22,8 +21,6 @@ export const metadata: Metadata = {
     "لندکروز پلاک آزاد",
     "لکسوس پلاک منطقه آزاد",
     "خرید خودرو مازندران",
-    "خرید خودرو ساری",
-    "نمایشگاه خودرو ساری",
     "حمیدی کارز",
     "Hamidi Cars",
   ],
@@ -102,15 +99,7 @@ const dealerJsonLd = {
       closes: "22:00",
     },
   ],
-  address: {
-    "@type": "PostalAddress",
-    streetAddress: "بلوار خزر، جنب مجتمع تجاری آفتاب",
-    addressLocality: "ساری",
-    addressRegion: "مازندران",
-    addressCountry: "IR",
-  },
   areaServed: [
-    { "@type": "City", name: "ساری" },
     { "@type": "AdministrativeArea", name: "مازندران" },
     { "@type": "AdministrativeArea", name: "شمال ایران" },
   ],
@@ -163,7 +152,6 @@ export default function RootLayout({
       </head>
       <body className="antialiased bg-[#050506] text-zinc-100 font-[Vazirmatn,system-ui,sans-serif]">
         {children}
-        <Toaster />
       </body>
     </html>
   );

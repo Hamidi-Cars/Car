@@ -19,6 +19,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { BASE_PATH } from "@/lib/site";
 
 /* ---------------------------- shared data ---------------------------- */
 
@@ -155,7 +156,7 @@ export function CarsSection() {
         <SectionTitle
           kicker="ناوگان ۲۰۲۶"
           title="خودروهای لوکس مدل ۲۰۲۶"
-          desc="کالکشن جدیدترین خودروهای صفر استوک با پلاک منطقه آزاد مازندران؛ همه با ضمانت اصالت، کارشناسی بدنه و امکان معاینه حضوری در نمایشگاه."
+          desc="کالکشن جدیدترین خودروهای صفر استوک با پلاک منطقه آزاد مازندران؛ همه با ضمانت اصالت، کارشناسی بدنه و امکان معاینه حضوری."
         />
 
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -171,7 +172,7 @@ export function CarsSection() {
               <Card className="group relative overflow-hidden rounded-2xl border border-white/8 bg-black/45 backdrop-blur-md transition-all duration-500 hover:border-[#d4af37]/45 hover:shadow-[0_20px_70px_rgba(212,175,55,0.16)] hover:-translate-y-1.5">
                 <div className="relative aspect-[16/10] overflow-hidden">
                   <img
-                    src={car.image}
+                    src={`${BASE_PATH}${car.image}`}
                     alt={`${car.name} ${car.year} پلاک منطقه آزاد`}
                     loading="lazy"
                     className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
