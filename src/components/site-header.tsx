@@ -11,6 +11,7 @@ const NAV_ITEMS = [
   { href: "#services", label: "خدمات" },
   { href: "#about", label: "درباره ما" },
   { href: "#contact", label: "تماس" },
+  { href: "#admin", label: "پنل مدیریت" },
 ];
 
 export function SiteHeader() {

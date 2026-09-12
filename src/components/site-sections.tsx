@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import {
   BadgeCheck,
@@ -20,6 +20,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { BASE_PATH } from "@/lib/site";
 import { DEFAULT_CARS, type SiteCar } from "@/lib/cars";
+import { getEffectiveCars } from "@/lib/car-store";
 
 /* --------------------------- car image src --------------------------- */
 
@@ -139,24 +140,23 @@ export function SectionTitle({
   );
 }
 
-export function CarsSection({ initialCars = [] }: { initialCars?: SiteCar[] }) {
-  const [cars, setCars] = useState<SiteCar[]>(initialCars);
+export function CarsSection() {
+  // رندر اولیه با خودروهای پیش‌فرض (سازگار با SSR)؛ پس از نصب، لیست واقعی بارگذاری می‌شود
+  const [cars, setCars] = useState<SiteCar[]>(DEFAULT_CARS);
 
-  // به‌روزرسانی زنده پس از تغییر خودروها در پنل مدیریت
-  useEffect(() => {
-    const refresh = async () => {
-      try {
-        const res = await fetch("/api/cars", { cache: "no-store" });
-        if (!res.ok) return;
-        const data = (await res.json()) as { cars?: SiteCar[] };
-        if (Array.isArray(data.cars)) setCars(data.cars);
-      } catch {
-        /* حالت استاتیک — لیست پیش‌فرض باقی می‌ماند */
-      }
-    };
-    window.addEventListener("cars-updated", refresh);
-    return () => window.removeEventListener("cars-updated", refresh);
+  const refresh = useCallback(async () => {
+    setCars(await getEffectiveCars());
   }, []);
+
+  // بارگذاری اولیه + به‌روزرسانی زنده پس از تغییر خودروها در پنل مدیریت
+  useEffect(() => {
+    const t = setTimeout(refresh, 0); // بارگذاری اولیه (خارج از رندر)
+    window.addEventListener("cars-updated", refresh);
+    return () => {
+      clearTimeout(t);
+      window.removeEventListener("cars-updated", refresh);
+    };
+  }, [refresh]);
 
   const list = cars.length > 0 ? cars : DEFAULT_CARS;
 
@@ -195,7 +195,7 @@ const BENEFITS = [
   {
     icon: Banknote,
     title: "معافیت از مالیات و عوارض",
-    desc: "خودروهای ثبت‌شده در منطقه آزاد از بسیاری مالیات‌ها و عوارض ثبتی معاف هستند؛ در نتیجه قیمت تمام‌شده نهایی به‌مراتب پایین‌تر از مدل‌های مشابه پلاک ملی است و شما همان کیفیت جهانی را با هزینه کمتر تجربه می‌کنید.",
+    desc: "خودروهای ثبت‌شده در منطقه آزاد از بسیاری مالیات‌ها و عوارض ثبتی معاف هستند؛ در نتیجه قیمت تمام‌شده نهایی به‌مراتب پایین‌تر از مدل‌های مشابه پلاک ملی است و شما همان کیفیت جهانی را با هزینه کمتر دریافت می‌کنید.",
   },
   {
     icon: FileCheck2,

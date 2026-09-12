@@ -9,10 +9,6 @@ import { CarsSection, BenefitsSection, ServicesSection } from "./site-sections";
 import { AboutSection, ContactSection, FaqSection } from "./site-contact";
 import { AdminPanel } from "./admin-panel";
 import { BASE_PATH } from "@/lib/site";
-import type { SiteCar } from "@/lib/cars";
-
-// نسخه استاتیک (GitHub Pages) پنل مدیریت ندارد
-const IS_STATIC = process.env.NEXT_PUBLIC_STATIC_EXPORT === "1";
 
 /* ------------------------------- hero -------------------------------- */
 
@@ -53,7 +49,7 @@ function Hero() {
           transition={{ duration: 0.9, delay: 0.45 }}
           className="mt-4 text-lg sm:text-xl md:text-3xl font-extrabold text-white"
         >
-          تجربه رانندگی لوکس ۲۰۲۶ با پلاک منطقه آزاد
+          لذت رانندگی لوکس ۲۰۲۶ با پلاک منطقه آزاد
         </motion.p>
 
         <motion.p
@@ -157,7 +153,6 @@ function Hero() {
 /* ------------------------------- stats ------------------------------- */
 
 const STATS = [
-  { value: "۱۲+", label: "سال تجربه درخشان" },
   { value: "۵۰۰+", label: "خودروی موجود و استوک" },
   { value: "۱۰۰٪", label: "سند رسمی سراسری" },
   { value: "۲۴/۷", label: "پشتیبانی همه‌روزه" },
@@ -172,7 +167,7 @@ function StatsBar() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-60px" }}
           transition={{ duration: 0.8 }}
-          className="grid grid-cols-2 gap-4 rounded-3xl border border-[#d4af37]/15 bg-black/55 p-6 md:p-10 backdrop-blur-xl shadow-[0_20px_80px_rgba(0,0,0,0.6)] md:grid-cols-4"
+          className="grid grid-cols-3 gap-4 rounded-3xl border border-[#d4af37]/15 bg-black/55 p-6 md:p-10 backdrop-blur-xl shadow-[0_20px_80px_rgba(0,0,0,0.6)]"
         >
           {STATS.map((s, i) => (
             <motion.div
@@ -235,6 +230,7 @@ function Footer() {
                 ["#about", "درباره حمیدی کارز"],
                 ["#faq", "سوالات متداول"],
                 ["#contact", "تماس با ما"],
+                ["#admin", "پنل مدیریت"],
               ].map(([href, label]) => (
                 <li key={href}>
                   <a href={href} className="transition-colors hover:text-[#f0d68a]">
@@ -282,15 +278,13 @@ function Footer() {
           <p>© ۲۰۲۶ Hamidi Cars — تمامی حقوق محفوظ است.</p>
           <p className="flex items-center gap-4">
             <span>طراحی‌شده با عشق برای دوستداران خودرو در مازندران</span>
-            {!IS_STATIC && (
-              <a
-                href="#admin"
-                className="inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/[0.03] px-3 py-1.5 font-bold text-zinc-500 transition-colors hover:border-[#d4af37]/40 hover:text-[#f0d68a]"
-              >
-                <ShieldCheck className="h-3.5 w-3.5" />
-                پنل مدیریت
-              </a>
-            )}
+            <a
+              href="#admin"
+              className="inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/[0.03] px-3 py-1.5 font-bold text-zinc-500 transition-colors hover:border-[#d4af37]/40 hover:text-[#f0d68a]"
+            >
+              <ShieldCheck className="h-3.5 w-3.5" />
+              پنل مدیریت
+            </a>
           </p>
         </div>
       </div>
@@ -300,7 +294,7 @@ function Footer() {
 
 /* ----------------------------- assembly ------------------------------ */
 
-export function HamidiSite({ initialCars = [] }: { initialCars?: SiteCar[] }) {
+export function HamidiSite() {
   return (
     <div className="relative min-h-screen flex flex-col bg-[#050506] text-zinc-100">
       <SimpleBackground />
@@ -309,7 +303,7 @@ export function HamidiSite({ initialCars = [] }: { initialCars?: SiteCar[] }) {
       <main className="relative z-10 flex-1">
         <Hero />
         <StatsBar />
-        <CarsSection initialCars={initialCars} />
+        <CarsSection />
         <BenefitsSection />
         <ServicesSection />
         <AboutSection />

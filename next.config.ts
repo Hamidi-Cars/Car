@@ -13,10 +13,6 @@ const nextConfig: NextConfig = {
     ? { output: "export" as const, images: { unoptimized: true } }
     : { output: "standalone" as const }),
   basePath,
-  // در حالت استاتیک، فایل‌های route.api.ts (APIهای پنل مدیریت) از بیلد حذف می‌شوند
-  pageExtensions: isStaticExport
-    ? ["tsx", "ts", "jsx", "js"]
-    : ["tsx", "ts", "jsx", "js", "api.ts"],
   typescript: {
     ignoreBuildErrors: true,
   },

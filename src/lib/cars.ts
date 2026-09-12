@@ -1,6 +1,7 @@
 /**
- * لایه داده خودروها — shared بین سرور و کلاینت
- * SiteCar: شکل واحد خودرو در کل سایت (پنل مدیریت + بخش خودروها)
+ * لایه داده خودروها — shared بین پنل مدیریت و بخش خودروهای سایت
+ * SiteCar: شکل واحد خودرو در کل سایت
+ * (ذخیره‌سازی و همگام‌سازی در src/lib/car-store.ts انجام می‌شود)
  */
 
 export type SiteCar = {
@@ -12,7 +13,7 @@ export type SiteCar = {
   description: string;
 };
 
-/** خودروهای پیش‌فرض — وقتی دیتابیس خالی است یا API در دسترس نیست (حالت استاتیک) */
+/** خودروهای پیش‌فرض — تا وقتی مدیر لیستی را ذخیره یا منتشر نکرده است */
 export const DEFAULT_CARS: SiteCar[] = [
   {
     id: "land-cruiser",
@@ -69,27 +70,3 @@ export const DEFAULT_CARS: SiteCar[] = [
       "مدل ۲۰۲۶ — موتور ۲.۹ لیتر V6 بیتوربو همراه با سیستم هیبرید برقی و ۵۲۰ اسب بخار قدرت. قیمت پایه ۱۶.۴ میلیارد تومان، بیمه معتبر و ضمانت اصالت.",
   },
 ];
-
-/**
- * واکشی خودروها از دیتابیس (سمت سرور).
- * در حالت استاتیک در زمان build اجرا می‌شود؛ هر خطا → لیست پیش‌فرض.
- */
-export async function getCars(): Promise<SiteCar[]> {
-  try {
-    const { db } = await import("@/lib/db");
-    const rows = await db.car.findMany({
-      orderBy: { createdAt: "asc" },
-      select: {
-        id: true,
-        name: true,
-        imageUrl: true,
-        speed: true,
-        mileage: true,
-        description: true,
-      },
-    });
-    return rows;
-  } catch {
-    return [];
-  }
-}
