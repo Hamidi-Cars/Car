@@ -1,0 +1,4 @@
+User-Agent: *
+Allow: /
+
+Sitemap: https://hamidi-cars.github.io/Car/sitemap.xml
