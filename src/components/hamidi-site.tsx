@@ -11,6 +11,9 @@ import { AdminPanel } from "./admin-panel";
 import { BASE_PATH } from "@/lib/site";
 import type { SiteCar } from "@/lib/cars";
 
+// نسخه استاتیک (GitHub Pages) پنل مدیریت ندارد
+const IS_STATIC = process.env.NEXT_PUBLIC_STATIC_EXPORT === "1";
+
 /* ------------------------------- hero -------------------------------- */
 
 function Hero() {
@@ -279,13 +282,15 @@ function Footer() {
           <p>© ۲۰۲۶ Hamidi Cars — تمامی حقوق محفوظ است.</p>
           <p className="flex items-center gap-4">
             <span>طراحی‌شده با عشق برای دوستداران خودرو در مازندران</span>
-            <a
-              href="#admin"
-              className="inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/[0.03] px-3 py-1.5 font-bold text-zinc-500 transition-colors hover:border-[#d4af37]/40 hover:text-[#f0d68a]"
-            >
-              <ShieldCheck className="h-3.5 w-3.5" />
-              پنل مدیریت
-            </a>
+            {!IS_STATIC && (
+              <a
+                href="#admin"
+                className="inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/[0.03] px-3 py-1.5 font-bold text-zinc-500 transition-colors hover:border-[#d4af37]/40 hover:text-[#f0d68a]"
+              >
+                <ShieldCheck className="h-3.5 w-3.5" />
+                پنل مدیریت
+              </a>
+            )}
           </p>
         </div>
       </div>
