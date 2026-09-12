@@ -84,7 +84,7 @@ const dealerJsonLd = {
   telephone: ["+989118020409", "+989387384240"],
   priceRange: "$$$",
   currenciesAccepted: "IRR",
-  paymentAccepted: "نقدی، اقساطی",
+  paymentAccepted: "نقدی",
   openingHoursSpecification: [
     {
       "@type": "OpeningHoursSpecification",

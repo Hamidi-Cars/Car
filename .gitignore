@@ -64,3 +64,6 @@ server.log
 /Caddyfile
 /agent-ctx/
 /mini-services/
+
+# local CI workflow (not pushed — Pages deploy uses legacy gh-pages branch)
+/.github/
