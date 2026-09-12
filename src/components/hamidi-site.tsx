@@ -7,7 +7,9 @@ import { SimpleBackground } from "./simple-background";
 import { SiteHeader } from "./site-header";
 import { CarsSection, BenefitsSection, ServicesSection } from "./site-sections";
 import { AboutSection, ContactSection, FaqSection } from "./site-contact";
+import { AdminPanel } from "./admin-panel";
 import { BASE_PATH } from "@/lib/site";
+import type { SiteCar } from "@/lib/cars";
 
 /* ------------------------------- hero -------------------------------- */
 
@@ -23,9 +25,10 @@ function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.15 }}
         >
-          <span className="inline-flex items-center gap-2 rounded-full border border-[#d4af37]/35 bg-black/50 px-4 py-2 text-[11px] md:text-xs font-bold text-[#f0d68a] backdrop-blur-md shadow-[0_0_30px_rgba(212,175,55,0.15)]">
-            <MapPin className="h-3.5 w-3.5" />
-            خودرو پلاک منطقه آزاد مازندران | مرجع تخصصی ماشین‌های پلاک آزاد در شمال کشور
+          <span className="inline-flex max-w-full items-center gap-2 rounded-full border border-[#d4af37]/35 bg-black/50 px-4 py-2 text-center text-[10px] md:text-xs font-bold leading-5 text-[#f0d68a] backdrop-blur-md shadow-[0_0_30px_rgba(212,175,55,0.15)]">
+            <MapPin className="h-3.5 w-3.5 shrink-0" />
+            <span className="hidden sm:inline">خودرو پلاک منطقه آزاد مازندران | مرجع تخصصی ماشین‌های پلاک آزاد در شمال کشور</span>
+            <span className="sm:hidden">خودرو پلاک منطقه آزاد مازندران</span>
           </span>
         </motion.div>
 
@@ -33,7 +36,7 @@ function Hero() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, delay: 0.3 }}
-          className="mt-7 text-5xl sm:text-6xl md:text-8xl font-black leading-none tracking-tight"
+          className="mt-6 text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-black leading-none tracking-tight"
         >
           <span className="bg-gradient-to-l from-[#f5d67b] via-[#e9c765] to-[#b8860b] bg-clip-text text-transparent drop-shadow-[0_0_35px_rgba(212,175,55,0.35)]">
             Hamidi Cars
@@ -45,7 +48,7 @@ function Hero() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, delay: 0.45 }}
-          className="mt-4 text-xl md:text-3xl font-extrabold text-white"
+          className="mt-4 text-lg sm:text-xl md:text-3xl font-extrabold text-white"
         >
           تجربه رانندگی لوکس ۲۰۲۶ با پلاک منطقه آزاد
         </motion.p>
@@ -54,7 +57,7 @@ function Hero() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, delay: 0.6 }}
-          className="mx-auto mt-6 max-w-2xl text-sm md:text-base leading-8 text-zinc-300"
+          className="mx-auto mt-5 max-w-2xl text-[13px] md:text-base leading-7 md:leading-8 text-zinc-300"
         >
           اگر به دنبال خرید خودرو پلاک منطقه آزاد مازندران هستید، جدیدترین ماشین‌های
           پلاک آزاد صفر استوک مدل ۲۰۲۶؛ از لندکروز و لکسوس تا مرسدس و بی‌ام‌و،
@@ -66,7 +69,7 @@ function Hero() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, delay: 0.75 }}
-          className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row"
+          className="mt-8 flex flex-col items-center justify-center gap-3 sm:mt-10 sm:flex-row"
         >
           <Button
             asChild
@@ -177,7 +180,7 @@ function StatsBar() {
               transition={{ duration: 0.6, delay: i * 0.1 }}
               className="text-center"
             >
-              <p className="bg-gradient-to-l from-[#f5d67b] to-[#b8860b] bg-clip-text text-3xl md:text-5xl font-black text-transparent">
+              <p className="bg-gradient-to-l from-[#f5d67b] to-[#b8860b] bg-clip-text text-2xl sm:text-3xl md:text-5xl font-black text-transparent">
                 {s.value}
               </p>
               <p className="mt-2 text-[11px] md:text-sm text-zinc-400">{s.label}</p>
@@ -274,7 +277,16 @@ function Footer() {
 
         <div className="mt-10 flex flex-col items-center justify-between gap-3 border-t border-white/5 pt-6 text-[11px] text-zinc-600 sm:flex-row">
           <p>© ۲۰۲۶ Hamidi Cars — تمامی حقوق محفوظ است.</p>
-          <p>طراحی‌شده با عشق برای دوستداران خودرو در مازندران</p>
+          <p className="flex items-center gap-4">
+            <span>طراحی‌شده با عشق برای دوستداران خودرو در مازندران</span>
+            <a
+              href="#admin"
+              className="inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/[0.03] px-3 py-1.5 font-bold text-zinc-500 transition-colors hover:border-[#d4af37]/40 hover:text-[#f0d68a]"
+            >
+              <ShieldCheck className="h-3.5 w-3.5" />
+              پنل مدیریت
+            </a>
+          </p>
         </div>
       </div>
     </footer>
@@ -283,7 +295,7 @@ function Footer() {
 
 /* ----------------------------- assembly ------------------------------ */
 
-export function HamidiSite() {
+export function HamidiSite({ initialCars = [] }: { initialCars?: SiteCar[] }) {
   return (
     <div className="relative min-h-screen flex flex-col bg-[#050506] text-zinc-100">
       <SimpleBackground />
@@ -292,7 +304,7 @@ export function HamidiSite() {
       <main className="relative z-10 flex-1">
         <Hero />
         <StatsBar />
-        <CarsSection />
+        <CarsSection initialCars={initialCars} />
         <BenefitsSection />
         <ServicesSection />
         <AboutSection />
@@ -301,6 +313,7 @@ export function HamidiSite() {
       </main>
 
       <Footer />
+      <AdminPanel />
     </div>
   );
 }

@@ -1,0 +1,22 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// خودروهای سایت — توسط پنل مدیریت Hamidi Cars مدیریت می‌شود
+model Car {
+  id          String   @id @default(cuid())
+  name        String // اسم ماشین
+  imageUrl    String // عکس (آدرس فایل یا data URL)
+  speed       String   @default("") // سرعت
+  mileage     String   @default("") // کارکرد
+  description String   @default("") // توضیحات
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("cars")
+}

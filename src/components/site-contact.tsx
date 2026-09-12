@@ -15,7 +15,7 @@ import { BASE_PATH, PHONES } from "@/lib/site";
 
 export function AboutSection() {
   return (
-    <section id="about" className="relative py-24 md:py-32">
+    <section id="about" className="relative py-16 md:py-32">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="grid items-center gap-12 lg:grid-cols-2">
           <motion.div
@@ -27,7 +27,7 @@ export function AboutSection() {
             <span className="inline-block rounded-full border border-[#d4af37]/30 bg-[#d4af37]/8 px-4 py-1.5 text-xs font-semibold tracking-wide text-[#f0d68a] backdrop-blur">
               داستان ما
             </span>
-            <h2 className="mt-5 text-3xl md:text-4xl font-black leading-snug text-white">
+            <h2 className="mt-5 text-2xl sm:text-3xl md:text-4xl font-black leading-snug text-white">
               حمیدی کارز؛ اعتماد شما،
               <span className="bg-gradient-to-l from-[#f5d67b] to-[#d4af37] bg-clip-text text-transparent">
                 {" "}
@@ -135,7 +135,7 @@ export function FaqSection() {
   };
 
   return (
-    <section id="faq" className="relative py-24 md:py-32">
+    <section id="faq" className="relative py-16 md:py-32">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
@@ -179,7 +179,7 @@ export function FaqSection() {
 
 export function ContactSection() {
   return (
-    <section id="contact" className="relative py-24 md:py-32">
+    <section id="contact" className="relative py-16 md:py-32">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <SectionTitle
           kicker="ارتباط با ما"
@@ -204,7 +204,7 @@ export function ContactSection() {
               <h3 className="text-base font-extrabold text-white">{p.name}</h3>
               <p
                 dir="ltr"
-                className="mt-3 bg-gradient-to-l from-[#f5d67b] to-[#d4af37] bg-clip-text text-2xl font-black tracking-wider text-transparent"
+                className="mt-3 bg-gradient-to-l from-[#f5d67b] to-[#d4af37] bg-clip-text text-xl sm:text-2xl font-black tracking-wider text-transparent"
               >
                 {p.display}
               </p>

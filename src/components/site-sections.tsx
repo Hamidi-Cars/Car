@@ -1,13 +1,14 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import {
   BadgeCheck,
   Banknote,
   CarFront,
   FileCheck2,
-  Fuel,
   Gauge,
+  Route,
   ShieldCheck,
   Sparkles,
   TrendingUp,
@@ -18,95 +19,86 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { BASE_PATH } from "@/lib/site";
+import { DEFAULT_CARS, type SiteCar } from "@/lib/cars";
 
-/* ---------------------------- shared data ---------------------------- */
+/* --------------------------- car image src --------------------------- */
 
-export const CARS = [
-  {
-    id: "land-cruiser",
-    name: "تویوتا لندکروز ۳۰۰",
-    trim: "GXR دوقلو توربو",
-    year: "۲۰۲۶",
-    price: "۱۸.۹ میلیارد تومان",
-    image: "/cars/suv1.png",
-    badge: "پرفروش‌ترین",
-    specs: [
-      { icon: Fuel, label: "۳.۵ لیتر V6 توئین‌توربو" },
-      { icon: Gauge, label: "صفر کیلومتر" },
-      { icon: CarFront, label: "۴WD تمام‌وقت" },
-    ],
-  },
-  {
-    id: "lexus-lx",
-    name: "لکسوس LX ۶۰۰",
-    trim: "Signature اسپورت",
-    year: "۲۰۲۶",
-    price: "۲۴.۵ میلیارد تومان",
-    image: "/cars/suv2.png",
-    badge: "لوکس‌ترین",
-    specs: [
-      { icon: Fuel, label: "۳.۵ لیتر V6 توئین‌توربو" },
-      { icon: Gauge, label: "صفر کیلومتر" },
-      { icon: CarFront, label: "صندلی‌های برقی مجلل" },
-    ],
-  },
-  {
-    id: "benz-s",
-    name: "مرسدس‌بنز کلاس S",
-    trim: "S 580 طولانی 4MATIC",
-    year: "۲۰۲۶",
-    price: "۲۲.۸ میلیارد تومان",
-    image: "/cars/sedan1.png",
-    badge: "استوک اروپا",
-    specs: [
-      { icon: Fuel, label: "۴.۰ لیتر V8 بیتوربو" },
-      { icon: Gauge, label: "صفر کیلومتر" },
-      { icon: Sparkles, label: "سیستم تعلیق جادویی" },
-    ],
-  },
-  {
-    id: "bmw-7",
-    name: "بی‌ام‌و سری ۷",
-    trim: "760i xDrive",
-    year: "۲۰۲۶",
-    price: "۱۹.۶ میلیارد تومان",
-    image: "/cars/sedan2.png",
-    badge: "ورزشی و مجلل",
-    specs: [
-      { icon: Fuel, label: "۴.۴ لیتر V8 توئین‌توربو" },
-      { icon: Gauge, label: "صفر کیلومتر" },
-      { icon: Sparkles, label: "نمایشگر سینمایی ۳۱ اینچ" },
-    ],
-  },
-  {
-    id: "kia-sportage",
-    name: "کیا اسپورتیج",
-    trim: "X-Line توربو",
-    year: "۲۰۲۶",
-    price: "۳.۲ میلیارد تومان",
-    image: "/cars/suv3.png",
-    badge: "اقتصادی و به‌صرفه",
-    specs: [
-      { icon: Fuel, label: "۱.۶ لیتر توربوشارژ" },
-      { icon: Gauge, label: "صفر کیلومتر" },
-      { icon: CarFront, label: "دیفرانسیل کامل" },
-    ],
-  },
-  {
-    id: "cayenne",
-    name: "پورشه کاین S",
-    trim: "E-Hybrid",
-    year: "۲۰۲۶",
-    price: "۱۶.۴ میلیارد تومان",
-    image: "/cars/suv4.png",
-    badge: "هیبرید",
-    specs: [
-      { icon: Fuel, label: "۲.۹ لیتر V6 بیتوربو + برقی" },
-      { icon: Gauge, label: "صفر کیلومتر" },
-      { icon: Sparkles, label: "۵۲۰ اسب بخار" },
-    ],
-  },
-];
+export function carImageSrc(imageUrl: string): string {
+  if (imageUrl.startsWith("data:") || imageUrl.startsWith("http")) return imageUrl;
+  return `${BASE_PATH}${imageUrl}`;
+}
+
+/* ------------------------------ car card ----------------------------- */
+
+function CarCard({ car, index }: { car: SiteCar; index: number }) {
+  return (
+    <motion.article
+      custom={index % 3}
+      variants={fadeUp}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, margin: "-60px" }}
+      className="h-full"
+    >
+      <Card className="group relative h-full overflow-hidden rounded-2xl border border-white/8 bg-black/45 backdrop-blur-md transition-all duration-500 hover:border-[#d4af37]/45 hover:shadow-[0_20px_70px_rgba(212,175,55,0.16)] hover:-translate-y-1.5">
+        <div className="relative aspect-[16/10] overflow-hidden">
+          <img
+            src={carImageSrc(car.imageUrl)}
+            alt={`${car.name} — خودرو پلاک منطقه آزاد مازندران`}
+            loading="lazy"
+            className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/10 to-transparent" />
+          <Badge className="absolute top-3 right-3 rounded-full border border-[#d4af37]/40 bg-black/70 px-3 py-1 text-[11px] font-bold text-[#f0d68a] backdrop-blur">
+            پلاک منطقه آزاد
+          </Badge>
+          <h3 className="absolute bottom-3 right-4 left-4 text-base leading-7 font-extrabold text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)] sm:text-lg">
+            {car.name}
+          </h3>
+        </div>
+
+        <CardContent className="p-5">
+          <div className="mb-4 grid grid-cols-2 gap-2.5">
+            <div className="flex items-center gap-2 rounded-xl border border-white/8 bg-white/[0.03] px-3 py-2">
+              <Gauge className="h-4 w-4 shrink-0 text-[#d4af37]" />
+              <div className="min-w-0">
+                <p className="text-[10px] text-zinc-500">سرعت</p>
+                <p className="truncate text-xs font-bold text-zinc-200" title={car.speed}>
+                  {car.speed || "—"}
+                </p>
+              </div>
+            </div>
+            <div className="flex items-center gap-2 rounded-xl border border-white/8 bg-white/[0.03] px-3 py-2">
+              <Route className="h-4 w-4 shrink-0 text-[#d4af37]" />
+              <div className="min-w-0">
+                <p className="text-[10px] text-zinc-500">کارکرد</p>
+                <p className="truncate text-xs font-bold text-zinc-200" title={car.mileage}>
+                  {car.mileage || "—"}
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <p className="text-[13px] leading-7 text-zinc-400 line-clamp-3">
+            {car.description || "برای دریافت اطلاعات کامل این خودرو با کارشناسان ما تماس بگیرید."}
+          </p>
+
+          <div className="mt-5 flex items-center justify-between border-t border-white/8 pt-4">
+            <p className="text-[11px] text-zinc-500">سند رسمی سراسری</p>
+            <Button
+              asChild
+              size="sm"
+              variant="outline"
+              className="rounded-full border-[#d4af37]/40 bg-[#d4af37]/5 text-[#f0d68a] hover:bg-[#d4af37] hover:text-black transition-all"
+            >
+              <a href={`#contact`}>استعلام و رزرو</a>
+            </Button>
+          </div>
+        </CardContent>
+      </Card>
+    </motion.article>
+  );
+}
 
 /* ------------------------------ section ------------------------------ */
 
@@ -139,17 +131,37 @@ export function SectionTitle({
       <span className="inline-block rounded-full border border-[#d4af37]/30 bg-[#d4af37]/8 px-4 py-1.5 text-xs font-semibold tracking-wide text-[#f0d68a] backdrop-blur">
         {kicker}
       </span>
-      <h2 className="mt-5 text-3xl md:text-5xl font-black leading-tight bg-gradient-to-l from-[#f5d67b] via-[#e9c765] to-[#d4af37] bg-clip-text text-transparent">
+      <h2 className="mt-5 text-2xl sm:text-3xl md:text-5xl font-black leading-tight bg-gradient-to-l from-[#f5d67b] via-[#e9c765] to-[#d4af37] bg-clip-text text-transparent">
         {title}
       </h2>
-      {desc && <p className="mt-5 text-sm md:text-base leading-8 text-zinc-400">{desc}</p>}
+      {desc && <p className="mt-4 text-[13px] md:text-base leading-7 md:leading-8 text-zinc-400">{desc}</p>}
     </motion.div>
   );
 }
 
-export function CarsSection() {
+export function CarsSection({ initialCars = [] }: { initialCars?: SiteCar[] }) {
+  const [cars, setCars] = useState<SiteCar[]>(initialCars);
+
+  // به‌روزرسانی زنده پس از تغییر خودروها در پنل مدیریت
+  useEffect(() => {
+    const refresh = async () => {
+      try {
+        const res = await fetch("/api/cars", { cache: "no-store" });
+        if (!res.ok) return;
+        const data = (await res.json()) as { cars?: SiteCar[] };
+        if (Array.isArray(data.cars)) setCars(data.cars);
+      } catch {
+        /* حالت استاتیک — لیست پیش‌فرض باقی می‌ماند */
+      }
+    };
+    window.addEventListener("cars-updated", refresh);
+    return () => window.removeEventListener("cars-updated", refresh);
+  }, []);
+
+  const list = cars.length > 0 ? cars : DEFAULT_CARS;
+
   return (
-    <section id="cars" className="relative py-24 md:py-32">
+    <section id="cars" className="relative py-16 md:py-32">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <SectionTitle
           kicker="ناوگان ۲۰۲۶"
@@ -157,65 +169,9 @@ export function CarsSection() {
           desc="کالکشن جدیدترین خودروهای صفر استوک با پلاک منطقه آزاد مازندران؛ همه با ضمانت اصالت، کارشناسی بدنه و امکان معاینه حضوری."
         />
 
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {CARS.map((car, i) => (
-            <motion.article
-              key={car.id}
-              custom={i % 3}
-              variants={fadeUp}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, margin: "-60px" }}
-            >
-              <Card className="group relative overflow-hidden rounded-2xl border border-white/8 bg-black/45 backdrop-blur-md transition-all duration-500 hover:border-[#d4af37]/45 hover:shadow-[0_20px_70px_rgba(212,175,55,0.16)] hover:-translate-y-1.5">
-                <div className="relative aspect-[16/10] overflow-hidden">
-                  <img
-                    src={`${BASE_PATH}${car.image}`}
-                    alt={`${car.name} ${car.year} پلاک منطقه آزاد`}
-                    loading="lazy"
-                    className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/10 to-transparent" />
-                  <Badge className="absolute top-3 right-3 rounded-full border border-[#d4af37]/40 bg-black/70 px-3 py-1 text-[11px] font-bold text-[#f0d68a] backdrop-blur">
-                    {car.badge}
-                  </Badge>
-                  <div className="absolute bottom-3 right-4 left-4 flex items-end justify-between">
-                    <div>
-                      <h3 className="text-lg font-extrabold text-white">{car.name}</h3>
-                      <p className="text-xs text-zinc-300 mt-0.5">{car.trim}</p>
-                    </div>
-                    <span className="rounded-lg bg-gradient-to-l from-[#b8860b] to-[#f5d67b] px-2.5 py-1 text-xs font-black text-black">
-                      {car.year}
-                    </span>
-                  </div>
-                </div>
-
-                <CardContent className="p-5">
-                  <ul className="space-y-2.5 mb-5">
-                    {car.specs.map((spec) => (
-                      <li key={spec.label} className="flex items-center gap-2.5 text-xs text-zinc-300">
-                        <spec.icon className="h-4 w-4 shrink-0 text-[#d4af37]" />
-                        {spec.label}
-                      </li>
-                    ))}
-                  </ul>
-                  <div className="flex items-center justify-between border-t border-white/8 pt-4">
-                    <div>
-                      <p className="text-[10px] text-zinc-500 mb-0.5">قیمت پایه</p>
-                      <p className="text-sm font-black text-[#f0d68a]">{car.price}</p>
-                    </div>
-                    <Button
-                      asChild
-                      size="sm"
-                      variant="outline"
-                      className="rounded-full border-[#d4af37]/40 bg-[#d4af37]/5 text-[#f0d68a] hover:bg-[#d4af37] hover:text-black transition-all"
-                    >
-                      <a href={`#contact`}>استعلام و رزرو</a>
-                    </Button>
-                  </div>
-                </CardContent>
-              </Card>
-            </motion.article>
+        <div className="grid gap-5 sm:gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {list.map((car, i) => (
+            <CarCard key={car.id} car={car} index={i} />
           ))}
         </div>
 
@@ -270,7 +226,7 @@ const BENEFITS = [
 
 export function BenefitsSection() {
   return (
-    <section id="benefits" className="relative py-24 md:py-32">
+    <section id="benefits" className="relative py-16 md:py-32">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <SectionTitle
           kicker="چرا حمیدی کارز؟"
@@ -330,7 +286,7 @@ const SERVICES = [
 
 export function ServicesSection() {
   return (
-    <section id="services" className="relative py-24 md:py-32">
+    <section id="services" className="relative py-16 md:py-32">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <SectionTitle
           kicker="خدمات یکپارچه"
