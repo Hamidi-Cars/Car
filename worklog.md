@@ -1,4 +1,34 @@
 ---
+Task ID: 2
+Agent: main (Super Z)
+Task: SEO for «خودرو/ماشین پلاک منطقه آزاد مازندران» queries + update phone numbers with owner names
+
+Work Log:
+- Created `src/lib/site.ts` — central config (SITE_URL, SITE_NAME, PHONES with names امیرحسین حمیدی +989118020409 and سینا حمیدی +989387384240)
+- Rewrote `src/app/layout.tsx` metadata:
+  - Title: «خودرو و ماشین پلاک منطقه آزاد مازندران | حمیدی کارز Hamidi Cars»
+  - Description + 15 keywords targeting both exact query variants
+  - robots (index/follow, max-image-preview large), canonical, OpenGraph with hero image, Twitter card
+  - JSON-LD AutoDealer schema (address ساری مازندران, both phones as contactPoint, opening hours, areaServed)
+- Added `src/app/sitemap.ts` + `src/app/robots.ts`; removed static public/robots.txt to avoid conflict
+- Added FAQ section (`FaqSection` in site-contact.tsx) with 6 keyword-rich Q&As + FAQPage JSON-LD schema; shadcn Accordion, id="faq"
+- Hero SEO: pill text + H1 sr-only keyword span + description mentions both query variants
+- Phones updated everywhere:
+  - Contact section: two clickable tel cards with owner names (tel:+989118020409 / tel:+989387384240)
+  - Footer: rows with names + tel links
+  - Header: desktop CTA now tel link; mobile quick-call button added beside hamburger
+  - Mobile menu CTA: «تماس با امیرحسین حمیدی»
+  - WhatsApp social link → wa.me/989118020409
+- Verified in browser: FAQ accordion opens, contact cards render, footer shows both numbers, mobile header has call button
+- Validated page source: AutoDealer JSON-LD valid (phones + contactPoints), FAQPage JSON-LD valid (6 questions), robots.txt + sitemap.xml served correctly
+- bun run lint clean, zero console errors
+
+Stage Summary:
+- On-page SEO fully maximized for target queries (title/desc/H1/keywords/content/schema/sitemap)
+- Both new phone numbers live with owner names, all tel-clickable
+- Off-page ranking (Google Search Console, backlinks, domain age) out of code scope — advised user
+
+---
 Task ID: 1
 Agent: main (Super Z)
 Task: Hamidi Cars website — make background simple (remove 3D), fix brand spelling to «حمیدی»

@@ -6,7 +6,8 @@ import { Button } from "@/components/ui/button";
 import { SimpleBackground } from "./simple-background";
 import { SiteHeader } from "./site-header";
 import { CarsSection, BenefitsSection, ServicesSection } from "./site-sections";
-import { AboutSection, TestimonialsSection, ContactSection } from "./site-contact";
+import { AboutSection, TestimonialsSection, ContactSection, FaqSection } from "./site-contact";
+import { PHONES } from "@/lib/site";
 
 /* ------------------------------- hero -------------------------------- */
 
@@ -24,7 +25,7 @@ function Hero() {
         >
           <span className="inline-flex items-center gap-2 rounded-full border border-[#d4af37]/35 bg-black/50 px-4 py-2 text-[11px] md:text-xs font-bold text-[#f0d68a] backdrop-blur-md shadow-[0_0_30px_rgba(212,175,55,0.15)]">
             <MapPin className="h-3.5 w-3.5" />
-            منطقه آزاد مازندران | مرجع تخصصی خودروهای پلاک آزاد در شمال کشور
+            خودرو پلاک منطقه آزاد مازندران | مرجع تخصصی ماشین‌های پلاک آزاد در شمال کشور
           </span>
         </motion.div>
 
@@ -37,6 +38,7 @@ function Hero() {
           <span className="bg-gradient-to-l from-[#f5d67b] via-[#e9c765] to-[#b8860b] bg-clip-text text-transparent drop-shadow-[0_0_35px_rgba(212,175,55,0.35)]">
             Hamidi Cars
           </span>
+          <span className="sr-only">حمیدی کارز — خرید و فروش خودرو و ماشین پلاک منطقه آزاد مازندران</span>
         </motion.h1>
 
         <motion.p
@@ -54,7 +56,8 @@ function Hero() {
           transition={{ duration: 0.9, delay: 0.6 }}
           className="mx-auto mt-6 max-w-2xl text-sm md:text-base leading-8 text-zinc-300"
         >
-          جدیدترین خودروهای صفر استوک مدل ۲۰۲۶؛ از لندکروز و لکسوس تا مرسدس و بی‌ام‌و،
+          اگر به دنبال خرید خودرو پلاک منطقه آزاد مازندران هستید، جدیدترین ماشین‌های
+          پلاک آزاد صفر استوک مدل ۲۰۲۶؛ از لندکروز و لکسوس تا مرسدس و بی‌ام‌و،
           با سند رسمی سراسری، بیمه معتبر و قیمتی که جای هیچ نگرانی ندارد.
           در حمیدی کارز، لوکس بودن با هوشمندی همراه است.
         </motion.p>
@@ -224,6 +227,7 @@ function Footer() {
                 ["#benefits", "پلاک منطقه آزاد"],
                 ["#services", "خدمات ما"],
                 ["#about", "درباره حمیدی کارز"],
+                ["#faq", "سوالات متداول"],
                 ["#testimonials", "نظرات مشتریان"],
                 ["#contact", "تماس با ما"],
               ].map(([href, label]) => (
@@ -243,9 +247,31 @@ function Footer() {
                 <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-[#d4af37]" />
                 مازندران، ساری، بلوار خزر، جنب مجتمع تجاری آفتاب
               </li>
-              <li className="flex items-center gap-2">
-                <Phone className="h-4 w-4 shrink-0 text-[#d4af37]" />
-                <span dir="ltr">۰۹۱۱-۱۱۱-۲۲۳۳ | ۰۱۱-۳۳۳۳-۴۴۵۵</span>
+              <li className="flex items-center justify-between gap-2">
+                <span className="flex items-center gap-2">
+                  <Phone className="h-4 w-4 shrink-0 text-[#d4af37]" />
+                  امیرحسین حمیدی
+                </span>
+                <a
+                  href="tel:+989118020409"
+                  dir="ltr"
+                  className="font-bold text-zinc-300 transition-colors hover:text-[#f0d68a]"
+                >
+                  0911 802 0409
+                </a>
+              </li>
+              <li className="flex items-center justify-between gap-2">
+                <span className="flex items-center gap-2">
+                  <Phone className="h-4 w-4 shrink-0 text-[#d4af37]" />
+                  سینا حمیدی
+                </span>
+                <a
+                  href="tel:+989387384240"
+                  dir="ltr"
+                  className="font-bold text-zinc-300 transition-colors hover:text-[#f0d68a]"
+                >
+                  0938 738 4240
+                </a>
               </li>
             </ul>
           </div>
@@ -276,6 +302,7 @@ export function HamidiSite() {
         <ServicesSection />
         <AboutSection />
         <TestimonialsSection />
+        <FaqSection />
         <ContactSection />
       </main>
 

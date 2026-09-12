@@ -21,6 +21,13 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { SectionTitle } from "./site-sections";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+import { PHONES } from "@/lib/site";
 
 /* --------------------------- about section --------------------------- */
 
@@ -182,6 +189,87 @@ export function TestimonialsSection() {
   );
 }
 
+/* ----------------------------- FAQ (SEO) ------------------------------ */
+
+const FAQS = [
+  {
+    q: "پلاک منطقه آزاد مازندران چیست؟",
+    a: "پلاک منطقه آزاد (پلاک پ) به خودروهایی تعلق می‌گیرد که از طریق مناطق آزاد تجاری کشور وارد و ثبت شده‌اند. این خودروها در بازار مازندران و سراسر شمال کشور طرفداران زیادی دارند؛ چون قیمت تمام‌شده آن‌ها به‌مراتب پایین‌تر از مدل‌های مشابه پلاک ملی است و خرید و فروش آن‌ها کاملاً قانونی و دارای سند رسمی است.",
+  },
+  {
+    q: "خودرو پلاک منطقه آزاد چه مزایایی نسبت به پلاک ملی دارد؟",
+    a: "مهم‌ترین مزیت، قیمت پایین‌تر به دلیل معافیت از بسیاری مالیات‌ها و عوارض ثبتی است. علاوه بر این، سند خودرو رسمی و قابل نقل و انتقال در سراسر کشور است، بیمه شخص ثالث و بدنه معتبر دارد و هنگام فروش مجدد نیز به دلیل تقاضای بالای بازار شمال کشور، سریع‌تر و با افت قیمت کمتر به فروش می‌رسد.",
+  },
+  {
+    q: "آیا ماشین پلاک منطقه آزاد در سراسر ایران قابل استفاده است؟",
+    a: "بله؛ خودروهای دارای پلاک منطقه آزاد با سند رسمی سراسری و بیمه معتبر، در تمام استان‌های کشور بدون هیچ محدودیتی قابل رانندگی هستند. فرایند نقل و انتقال نیز کاملاً قانونی است و تیم حقوقی حمیدی کارز تمام مراحل را در کوتاه‌ترین زمان ممکن برای شما انجام می‌دهد.",
+  },
+  {
+    q: "قیمت ماشین‌های پلاک منطقه آزاد در مازندران چقدر است؟",
+    a: "قیمت بسته به مدل، سال و آپشن متفاوت است؛ از حدود ۳ میلیارد تومان برای کیا اسپورتیج تا بیش از ۲۴ میلیارد تومان برای لکسوس LX ۶۰۰ مدل ۲۰۲۶. برای اطلاع از قیمت لحظه‌ای و نوسانات روز بازار، با کارشناسان ما به شماره 09118020409 تماس بگیرید.",
+  },
+  {
+    q: "آیا امکان خرید اقساطی خودرو پلاک آزاد وجود دارد؟",
+    a: "بله؛ حمیدی کارز با همکاری بانک‌های معتبر، امکان پرداخت مرحله‌ای تا ۶۰٪ مبلغ خودرو را فراهم کرده است. شرایط اقساط بر اساس مدل خودرو و مبلغ پیش‌پرداخت متفاوت است و کل فرایند از دریافت مدارک تا تحویل خودرو، شفاف و بدون واسطه انجام می‌شود.",
+  },
+  {
+    q: "چرا خرید ماشین پلاک منطقه آزاد از حمیدی کارز در ساری؟",
+    a: "حمیدی کارز با بیش از ۱۲ سال تجربه در بازار خودرو مازندران، تمام خودروها را پیش از عرضه کارشناسی ۲۱۷ نکته‌ای می‌کند و تاریخچه کامل آن‌ها استعلام می‌شود. بیش از ۷۰٪ فروش ما نتیجه معرفی مشتریان قبلی است؛ نشانه‌ای از اعتمادی که در طول سال‌ها ساخته‌ایم.",
+  },
+];
+
+export function FaqSection() {
+  const faqJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: FAQS.map((f) => ({
+      "@type": "Question",
+      name: f.q,
+      acceptedAnswer: { "@type": "Answer", text: f.a },
+    })),
+  };
+
+  return (
+    <section id="faq" className="relative py-24 md:py-32">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+      />
+      <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+        <SectionTitle
+          kicker="سوالات متداول"
+          title="هر آنچه درباره خودرو پلاک منطقه آزاد باید بدانید"
+          desc="پاسخ پرتکرارترین سوالات شما درباره خرید ماشین پلاک منطقه آزاد مازندران؛ اگر سوال دیگری دارید، کارشناسان ما همه‌روزه پاسخگوی شما هستند."
+        />
+
+        <motion.div
+          initial={{ opacity: 0, y: 32 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-60px" }}
+          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+        >
+          <Accordion
+            type="single"
+            collapsible
+            className="rounded-2xl border border-white/8 bg-black/45 px-5 py-2 backdrop-blur-md md:px-7"
+          >
+            {FAQS.map((f, i) => (
+              <AccordionItem key={f.q} value={`faq-${i}`} className="border-white/8">
+                <AccordionTrigger className="py-5 text-right text-sm font-bold text-zinc-100 hover:text-[#f0d68a] hover:no-underline md:text-[15px] [&>svg]:shrink-0 [&>svg]:text-[#d4af37]">
+                  {f.q}
+                </AccordionTrigger>
+                <AccordionContent className="pb-5 text-[13px] leading-7 text-zinc-400">
+                  {f.a}
+                </AccordionContent>
+              </AccordionItem>
+            ))}
+          </Accordion>
+        </motion.div>
+      </div>
+    </section>
+  );
+}
+
 /* --------------------------- contact section ------------------------- */
 
 export function ContactSection() {
@@ -249,52 +337,69 @@ export function ContactSection() {
             className="lg:col-span-2"
           >
             <div className="flex h-full flex-col gap-4">
-              {[
-                {
-                  icon: MapPin,
-                  title: "آدرس نمایشگاه",
-                  lines: ["مازندران، ساری، بلوار خزر، جنب مجتمع تجاری آفتاب", "نمایشگاه مرکزی حمیدی کارز"],
-                },
-                {
-                  icon: Phone,
-                  title: "تماس مستقیم",
-                  lines: ["۰۹۱۱-۱۱۱-۲۲۳۳ (واتساپ)", "۰۱۱-۳۳۳۳-۴۴۵۵ (ثابت)"],
-                },
-                {
-                  icon: Clock,
-                  title: "ساعات کاری",
-                  lines: ["شنبه تا پنجشنبه: ۹ صبح تا ۱۰ شب", "جمعه‌ها: ۴ عصر تا ۱۰ شب"],
-                },
-              ].map((c) => (
-                <div
-                  key={c.title}
-                  className="flex items-start gap-4 rounded-2xl border border-white/8 bg-black/45 p-5 backdrop-blur-md transition-colors hover:border-[#d4af37]/30"
-                >
-                  <span className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-[#d4af37]/25 to-[#d4af37]/5 ring-1 ring-[#d4af37]/30">
-                    <c.icon className="h-5 w-5 text-[#f0d68a]" />
-                  </span>
-                  <div>
-                    <h3 className="mb-1.5 text-sm font-extrabold text-white">{c.title}</h3>
-                    {c.lines.map((l) => (
-                      <p key={l} className="text-xs leading-6 text-zinc-400">
-                        {l}
-                      </p>
+              {/* address */}
+              <div className="flex items-start gap-4 rounded-2xl border border-white/8 bg-black/45 p-5 backdrop-blur-md transition-colors hover:border-[#d4af37]/30">
+                <span className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-[#d4af37]/25 to-[#d4af37]/5 ring-1 ring-[#d4af37]/30">
+                  <MapPin className="h-5 w-5 text-[#f0d68a]" />
+                </span>
+                <div>
+                  <h3 className="mb-1.5 text-sm font-extrabold text-white">آدرس نمایشگاه</h3>
+                  <p className="text-xs leading-6 text-zinc-400">مازندران، ساری، بلوار خزر، جنب مجتمع تجاری آفتاب</p>
+                  <p className="text-xs leading-6 text-zinc-400">نمایشگاه مرکزی حمیدی کارز</p>
+                </div>
+              </div>
+
+              {/* direct phones */}
+              <div className="flex items-start gap-4 rounded-2xl border border-white/8 bg-black/45 p-5 backdrop-blur-md transition-colors hover:border-[#d4af37]/30">
+                <span className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-[#d4af37]/25 to-[#d4af37]/5 ring-1 ring-[#d4af37]/30">
+                  <Phone className="h-5 w-5 text-[#f0d68a]" />
+                </span>
+                <div className="min-w-0 flex-1">
+                  <h3 className="mb-2.5 text-sm font-extrabold text-white">تماس مستقیم</h3>
+                  <div className="space-y-2">
+                    {PHONES.map((p) => (
+                      <a
+                        key={p.tel}
+                        href={`tel:${p.tel}`}
+                        className="group flex items-center justify-between gap-3 rounded-xl border border-white/10 bg-white/[0.04] px-3.5 py-2.5 transition-all hover:border-[#d4af37]/45 hover:bg-[#d4af37]/10"
+                      >
+                        <span className="text-xs font-bold text-zinc-200">{p.name}</span>
+                        <span
+                          dir="ltr"
+                          className="text-sm font-black text-[#f0d68a] transition-colors group-hover:text-[#ffe9a8]"
+                        >
+                          {p.display}
+                        </span>
+                      </a>
                     ))}
                   </div>
+                  <p className="mt-2.5 text-[11px] leading-5 text-zinc-500">تماس و واتساپ — پاسخگویی همه‌روزه</p>
                 </div>
-              ))}
+              </div>
+
+              {/* working hours */}
+              <div className="flex items-start gap-4 rounded-2xl border border-white/8 bg-black/45 p-5 backdrop-blur-md transition-colors hover:border-[#d4af37]/30">
+                <span className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-[#d4af37]/25 to-[#d4af37]/5 ring-1 ring-[#d4af37]/30">
+                  <Clock className="h-5 w-5 text-[#f0d68a]" />
+                </span>
+                <div>
+                  <h3 className="mb-1.5 text-sm font-extrabold text-white">ساعات کاری</h3>
+                  <p className="text-xs leading-6 text-zinc-400">شنبه تا پنجشنبه: ۹ صبح تا ۱۰ شب</p>
+                  <p className="text-xs leading-6 text-zinc-400">جمعه‌ها: ۴ عصر تا ۱۰ شب</p>
+                </div>
+              </div>
 
               <div className="flex items-center gap-3 rounded-2xl border border-white/8 bg-black/45 p-5 backdrop-blur-md">
                 <span className="text-xs font-bold text-zinc-400">ما را دنبال کنید:</span>
                 <div className="flex gap-2">
                   {[
-                    { icon: Instagram, label: "اینستاگرام" },
-                    { icon: MessageCircle, label: "واتساپ" },
-                    { icon: Send, label: "تلگرام" },
+                    { icon: Instagram, label: "اینستاگرام", href: "#contact" },
+                    { icon: MessageCircle, label: "واتساپ", href: "https://wa.me/989118020409" },
+                    { icon: Send, label: "تلگرام", href: "#contact" },
                   ].map((s) => (
                     <a
                       key={s.label}
-                      href="#contact"
+                      href={s.href}
                       aria-label={s.label}
                       className="flex h-10 w-10 items-center justify-center rounded-xl border border-[#d4af37]/25 bg-[#d4af37]/5 text-[#f0d68a] transition-all hover:bg-[#d4af37] hover:text-black"
                     >

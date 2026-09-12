@@ -70,22 +70,31 @@ export function SiteHeader() {
               asChild
               className="bg-gradient-to-l from-[#b8860b] via-[#d4af37] to-[#f5d67b] text-black font-bold hover:shadow-[0_0_30px_rgba(212,175,55,0.5)] hover:scale-[1.03] transition-all rounded-full px-6 border-0"
             >
-              <a href="#contact">
+              <a href="tel:+989118020409">
                 <PhoneCall className="ml-2 h-4 w-4" />
                 مشاوره رایگان
               </a>
             </Button>
           </div>
 
-          {/* Mobile menu button */}
-          <button
-            className="lg:hidden inline-flex h-11 w-11 items-center justify-center rounded-xl border border-[#d4af37]/25 bg-black/40 text-[#f0d68a] backdrop-blur"
-            onClick={() => setOpen((v) => !v)}
-            aria-label={open ? "بستن منو" : "باز کردن منو"}
-            aria-expanded={open}
-          >
-            {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-          </button>
+          {/* Mobile quick actions: direct call + menu */}
+          <div className="flex items-center gap-2 lg:hidden">
+            <a
+              href="tel:+989118020409"
+              aria-label="تماس با امیرحسین حمیدی"
+              className="inline-flex h-11 w-11 items-center justify-center rounded-xl border border-[#d4af37]/25 bg-[#d4af37]/10 text-[#f0d68a] backdrop-blur transition-colors hover:bg-[#d4af37]/20"
+            >
+              <PhoneCall className="h-5 w-5" />
+            </a>
+            <button
+              className="inline-flex h-11 w-11 items-center justify-center rounded-xl border border-[#d4af37]/25 bg-black/40 text-[#f0d68a] backdrop-blur"
+              onClick={() => setOpen((v) => !v)}
+              aria-label={open ? "بستن منو" : "باز کردن منو"}
+              aria-expanded={open}
+            >
+              {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+            </button>
+          </div>
         </div>
       </div>
 
@@ -110,9 +119,9 @@ export function SiteHeader() {
               asChild
               className="mt-2 bg-gradient-to-l from-[#b8860b] via-[#d4af37] to-[#f5d67b] text-black font-bold rounded-full border-0"
             >
-              <a href="#contact" onClick={() => setOpen(false)}>
+              <a href="tel:+989118020409" onClick={() => setOpen(false)}>
                 <PhoneCall className="ml-2 h-4 w-4" />
-                مشاوره رایگان
+                تماس با امیرحسین حمیدی
               </a>
             </Button>
           </div>
